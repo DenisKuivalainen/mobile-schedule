@@ -9,11 +9,11 @@
     <view v-if="firstLoad">
       <Loading />
     </view>
-    <view v-else-if="operated">
+    <view v-else-if="!operated">
       <Error />
     </view>
     <view v-else>
-      <Main @getJsonData="getJsonData" v-bind:data="data" />
+      <Main @getJsonData="getJsonData" v-bind:data="data" v-if="operated" />
     </view>
 
   </Container>
@@ -46,7 +46,7 @@ export default {
 
   methods: {
     getJsonData() {
-      fetch("http://kuivalainen.herokuapp.com/nspu/schedule?id=11393")
+      fetch("http://kuivalainen.herokuapp.com/nspu/schedule?id=1139")
       .then(response => response.json())
       .then(data => {
         this.firstLoad = false;

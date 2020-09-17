@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mobile-schedule",
-    "slug": "mobile-schedule",
+    "name": "Schedule",
+    "slug": "Schedule",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,6 +9,10 @@
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
+    },
+    "android": {
+      "package": "com.example.schedule",
+      "versionCode": 1
     },
     "updates": {
       "fallbackToCacheTimeout": 0

@@ -1,17 +1,26 @@
 <template>
     <ScrollView :enabled="true">
-        <RefreshControl :enabled="true" :refreshing="refreshing" :onRefresh="onRefresh" :colors="['#3F51B5']">
-            <view :style="{height: screenHeight}">
-                <Tabs>
-                    <Tab heading="Расписание на день">
-                        <Timetable v-bind:day="getTimetable()"/>
-                    </Tab>
-                    <Tab heading="Календарь">
-                        <Week />
-                    </Tab>
-                </Tabs>    
-            </view>
-        </RefreshControl>
+        <view :style="{height: screenHeight}">
+            <Tabs>
+                <Tab heading="Расписание на день">
+                    <Timetable 
+                        v-bind:day="getTimetable()"
+                        v-bind:dayTitle="getDayTitle()"
+                        v-bind:refreshing="refreshing" 
+                        @onRefresh="onRefresh" 
+                    />
+                </Tab>
+                <Tab heading="Календарь">
+                    <Week 
+                        v-bind:day="day"
+                        v-bind:week="week"
+                        v-bind:todayDay="getCurrentDay()"
+                        v-bind:todayWeek="data.week"
+                        @setTimetableDay="setTimetableDay"
+                    />
+                </Tab>
+            </Tabs>    
+        </view>
     </ScrollView>
 </template>
 
@@ -44,17 +53,10 @@ export default {
         return {
             screenHeight: Dimensions.get('window').height,
             refreshing: false,
-            week: true,
-            days: {},
-            day: {},
-            dayType: 0,
-            dayNames: ["monday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
-        }
-    },
-
-    watch: {
-        data: function(oldData, newData) {
-            this.setInfo();
+            day: this.getCurrentDay(),
+            week: this.data.week,
+            dayNames: ["monday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
+            dayNamesShort: ["ПН", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"]
         }
     },
 
@@ -62,40 +64,46 @@ export default {
         onRefresh() {
             this.refreshing = true;
             this.$emit("getJsonData");
+            this.day = this.getCurrentDay();
+            this.week = this.data.week;
             this.refreshing = false;
         },
-        setInfo() {
-            this.week = this.data.week;
-            this.days = this.data.days;
-            this.setCurrentDay();
+
+        setTimetableDay(arr) {
+            this.day = arr[0];
+            this.week = arr[1];
         },
-        setDay(day, opt) {
-            this.day = this.days[this.dayNames[day]];
-            this.dayType = opt;
-        },
-        setCurrentDay() {
+
+        getCurrentDay() {
             var today = new Date();
-            this.setDay(today.getDay(), this.week ? 0 : 1);
+            return today.getDay();
         },
+
+        getDayTitle() {
+            let a = this.dayNamesShort[this.day];
+            let b = this.week ? "числитель" : "знаменатель";
+            return a + ', ' + b;
+        },
+ 
         getTimetable() {
             let arr = [];
-            let ttl = this.day;
+            let ttl = this.data.days[this.dayNames[this.day]];
 
             for (let i = 0; i < ttl.length; i++) {
                 let time = ttl[i].time;
                 let subjects = [];
 
-                if(ttl[i].subjects.length = 1) {
+                if(ttl[i].subjects.length === 1) {
                     subjects.push(ttl[i].subjects[0]);
                 } else {
 
                     let code;
                     let subjectsSubarray = ttl[i].subjects;
 
-                    if(dayType === 0) {
+                    if(this.week) {
                         code = subjectsSubarray[0].code;
                     } else {
-                        code = subjectsSubarray[subjectsSubarray.length].code;
+                        code = subjectsSubarray[subjectsSubarray.length - 1].code;
                     }
 
                     for (let j = 0; j < subjectsSubarray.length; j++) {
@@ -106,7 +114,9 @@ export default {
                     }
                 }
                 
-                arr.push({time: time, subjects: subjects});
+                if(subjects[0].name !== "") {
+                    arr.push({time: time, subjects: subjects});
+                }
             }
             return arr;
         }
