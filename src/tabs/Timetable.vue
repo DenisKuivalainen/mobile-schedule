@@ -1,6 +1,6 @@
 <template>
     <ScrollView>
-        <RefreshControl :enabled="true" :refreshing="refreshing" :onRefresh="getRefresh" :colors="['#3F51B5']" >
+        <RefreshControl :enabled="true" :refreshing="refreshing" :onRefresh="getRefresh" :colors="['#b600bf']" >
             <H3 class="day-name">
                 {{dayTitle}}
             </H3>
