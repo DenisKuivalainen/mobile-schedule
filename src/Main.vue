@@ -123,10 +123,7 @@ export default {
                     }
 
                     for (let j = 0; j < subjectsSubarray.length; j++) {
-                        if(subjectsSubarray[j].code === code) {
-                            subjects.push(subjectsSubarray[j]);
-                        }
-                        
+                        (subjectsSubarray[j].code === code) && subjects.push(subjectsSubarray[j]);                       
                     }
                 }
                 
