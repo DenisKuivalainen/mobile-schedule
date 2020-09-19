@@ -20,7 +20,7 @@ export default {
   top: 20;
   text-align: center;
   margin: 20;
-  color: red;
+  color: #b600bf;
   font-weight: bold;
 }
 </style>

@@ -46,5 +46,6 @@ export default {
     margin-bottom: 10;
     text-align: center;
     font-weight: bold;
+    color: white;
 }
 </style>

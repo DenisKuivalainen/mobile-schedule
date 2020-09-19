@@ -1,8 +1,17 @@
 <template>
     <ScrollView :enabled="true">
-        <view :style="{height: screenHeight}">
-            <Tabs>
-                <Tab heading="Расписание на день">
+        <view :style="{height: screenHeight, backgroundColor: 'black'}">
+            <Tabs
+                :tabBarUnderlineStyle="{backgroundColor: 'white'}"
+            >
+                <Tab 
+                    :tabStyle="{backgroundColor: '#b600bf'}" 
+                    :activeTabStyle="{backgroundColor: '#b600bf'}"
+                    :textStyle="{color: '#fbbaff'}"
+                    :activeTextStyle="{color: 'white', fontWeight: 'bold'}"
+                    class="tab-bg" 
+                    heading="Расписание на день"
+                >
                     <Timetable 
                         v-bind:day="getTimetable()"
                         v-bind:dayTitle="getDayTitle()"
@@ -10,7 +19,14 @@
                         @onRefresh="onRefresh" 
                     />
                 </Tab>
-                <Tab heading="Календарь">
+                <Tab 
+                    :tabStyle="{backgroundColor: '#b600bf'}" 
+                    :activeTabStyle="{backgroundColor: '#b600bf'}"
+                    :textStyle="{color: '#fbbaff'}"
+                    :activeTextStyle="{color: 'white', fontWeight: 'bold'}"
+                    class="tab-bg" 
+                    heading="Календарь"
+                >
                     <Week 
                         v-bind:day="day"
                         v-bind:week="week"
@@ -125,5 +141,7 @@ export default {
 </script>
 
 <style>
-
+.tab-bg {
+    background-color: black;
+}
 </style>

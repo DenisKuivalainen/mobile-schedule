@@ -77,7 +77,7 @@ export default {
 
         getBackground(day, week) {
             let a = this.todayDay === 0 ? 1 : this.todayDay;
-            return (a === day && week === this.todayWeek) ? '#3F51B5' : '#bfbfbf';
+            return (a === day && week === this.todayWeek) ? '#b600bf' : (this.day === day && week === this.week) ? '#fbbaff' : 'white';
         },
 
         getColor(day, week) {
@@ -105,5 +105,6 @@ export default {
 },
 .heading {
     text-align: center;
+    color: white;
 }
 </style>

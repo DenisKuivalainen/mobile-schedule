@@ -1,7 +1,7 @@
 <template>
     <view class="loading">
         <H3 class="loading-text">Расписание загружается...</H3>
-        <Spinner color="#3F51B5" />
+        <Spinner color="#b600bf" />
     </view>
 </template>
 
@@ -25,5 +25,6 @@ export default {
 .loading-text {
     text-align: center;
     margin: 20;
+    color: white;
 }
 </style>

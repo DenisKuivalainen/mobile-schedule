@@ -1,8 +1,8 @@
 <template>
-  <Container>
+  <Container class="main-bg">
     
     <status-bar
-      background-color="#3F51B5"
+      background-color="#b600bf"
       bar-style="light-content"
     />
 
@@ -63,5 +63,7 @@ export default {
 </script>
 
 <style>
-
+.main-bg {
+  background-color: black;
+}
 </style>
