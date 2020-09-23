@@ -31,7 +31,7 @@
                         v-bind:day="day"
                         v-bind:week="week"
                         v-bind:todayDay="getCurrentDay()"
-                        v-bind:todayWeek="data.week"
+                        v-bind:todayWeek="getCurrentWeek()"
                         @setTimetableDay="setTimetableDay"
                     />
                 </Tab>
@@ -70,7 +70,7 @@ export default {
             screenHeight: Dimensions.get('window').height,
             refreshing: false,
             day: this.getCurrentDay(),
-            week: this.data.week,
+            week: this.getCurrentWeek(),
             dayNames: ["monday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
             dayNamesShort: ["ПН", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"]
         }
@@ -81,8 +81,12 @@ export default {
             this.refreshing = true;
             this.$emit("getJsonData");
             this.day = this.getCurrentDay();
-            this.week = this.data.week;
+            this.week = this.getCurrentWeek;
             this.refreshing = false;
+        },
+
+        getCurrentWeek() {
+            return !!!this.getCurrentDay() ? !this.data.week : this.data.week;
         },
 
         setTimetableDay(arr) {
