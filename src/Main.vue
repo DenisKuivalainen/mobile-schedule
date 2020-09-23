@@ -81,7 +81,7 @@ export default {
             this.refreshing = true;
             this.$emit("getJsonData");
             this.day = this.getCurrentDay();
-            this.week = this.getCurrentWeek;
+            this.week = this.getCurrentWeek();
             this.refreshing = false;
         },
 
